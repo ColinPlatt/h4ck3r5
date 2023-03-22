@@ -9,7 +9,7 @@ import "src/ITurnstile.sol";
 
 contract Distributor is Ownable {
 
-    uint256 public constant MAX_MINT = 2000;
+    uint256 public constant MAX_MINT = 420;
     uint256 public constant MINT_COST = 269 ether;
 
     IERC721 public immutable ampliceGhouls;
@@ -25,7 +25,7 @@ contract Distributor is Ownable {
     mapping(address => bool) public earlyMintedByThresholds;
     mapping(address => uint8) public mintedByAddress;
 
-    uint16[420] public ids;
+    uint16[MAX_MINT] public ids;
     uint16 private index;
     
     constructor(
