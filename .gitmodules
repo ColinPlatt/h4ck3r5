@@ -6,3 +6,6 @@
 	path = lib/openzeppelin-contracts
 	url = https://github.com/Openzeppelin/openzeppelin-contracts
 	branch = v4.8.2
+[submodule "lib/SS2ERC721"]
+	path = lib/SS2ERC721
+	url = https://github.com/showtime-xyz/SS2ERC721
