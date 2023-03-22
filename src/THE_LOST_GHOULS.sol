@@ -10,7 +10,7 @@ import "src/ITurnstile.sol";
 
 contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
     
-    uint256 public constant MAX_ID = 2000;
+    uint256 public constant MAX_ID = 420;
 
     address private ghoulsMultiSig = 0x0B983A9A7C0a4Dc37ae2bA2781a9e10141338b34;
     string public baseUri;

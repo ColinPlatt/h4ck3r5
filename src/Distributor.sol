@@ -3,6 +3,7 @@ pragma solidity ^0.8.15;
 
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "src/THE_LOST_GHOULS.sol";
+import "src/ThresholdGhouls.sol";
 
 import "src/ITurnstile.sol";
 
@@ -12,6 +13,7 @@ contract Distributor is Ownable {
     uint256 public constant MINT_COST = 269 ether;
 
     IERC721 public immutable ampliceGhouls;
+    ThresholdGhouls public immutable thresholdGhouls;
 
     bool public publicSaleOpen;
     
@@ -20,17 +22,20 @@ contract Distributor is Ownable {
     // we group the bools to determine if an NFT has minted from both collections to save storage
 
     mapping(uint256 => bool) public earlyMintedByIds;
+    mapping(address => bool) public earlyMintedByThresholds;
     mapping(address => uint8) public mintedByAddress;
 
-    uint16[2000] public ids;
+    uint16[420] public ids;
     uint16 private index;
     
     constructor(
         address _lostGhouls,
-        address _ampliceGhouls
+        address _ampliceGhouls,
+        address _thresholdGhouls
     ) {
         lostGhouls = THE_LOST_GHOULS(_lostGhouls);
         ampliceGhouls = IERC721(_ampliceGhouls);
+        thresholdGhouls = ThresholdGhouls(_thresholdGhouls);
         if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).assign(lostGhouls.CSRID());
     }
 
@@ -66,6 +71,18 @@ contract Distributor is Ownable {
         earlyMintedByIds[id] = true;
 
         lostGhouls.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)*id)+1);
+
+    }
+
+    function thresholdMint() public payable {
+        require(thresholdGhouls._isListed(msg.sender), "Caller not eligible");
+        require(!earlyMintedByThresholds[msg.sender], "Already claimed");
+        require(msg.value >= MINT_COST, "Insufficient payment");
+        mintedByAddress[msg.sender]++;
+
+        earlyMintedByThresholds[msg.sender] = true;
+
+        lostGhouls.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)));
 
     }
 

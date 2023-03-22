@@ -9,3 +9,6 @@
 [submodule "lib/SS2ERC721"]
 	path = lib/SS2ERC721
 	url = https://github.com/showtime-xyz/SS2ERC721
+[submodule "lib/solmate"]
+	path = lib/solmate
+	url = https://github.com/Transmissions11/solmate
