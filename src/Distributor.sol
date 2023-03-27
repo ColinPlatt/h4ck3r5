@@ -13,6 +13,8 @@ contract Distributor is Ownable {
     uint256 public constant MINT_COST = 269 ether;
 
     IERC721 public immutable ampliceGhouls;
+    IERC721 public immutable cantofornians;
+    IERC721 public immutable pepperHeads;
     ThresholdGhouls public immutable thresholdGhouls;
 
     bool public publicSaleOpen;
@@ -21,7 +23,13 @@ contract Distributor is Ownable {
     
     // we group the bools to determine if an NFT has minted from both collections to save storage
 
-    mapping(uint256 => bool) public earlyMintedByIds;
+    struct earlyMints {
+        bool amplices;
+        bool cantofornians;
+        bool pepperHeads;
+    }
+
+    mapping(uint256 => earlyMints) public earlyMinted;
     mapping(address => bool) public earlyMintedByThresholds;
     mapping(address => uint8) public mintedByAddress;
 
@@ -31,10 +39,14 @@ contract Distributor is Ownable {
     constructor(
         address _lostGhouls,
         address _ampliceGhouls,
+        address _cantofornians,
+        address _pepperHeads,
         address _thresholdGhouls
     ) {
         lostGhouls = THE_LOST_GHOULS(_lostGhouls);
         ampliceGhouls = IERC721(_ampliceGhouls);
+        cantofornians = IERC721(_cantofornians);
+        pepperHeads = IERC721(_pepperHeads);
         thresholdGhouls = ThresholdGhouls(_thresholdGhouls);
         if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).assign(lostGhouls.CSRID());
     }
@@ -64,11 +76,35 @@ contract Distributor is Ownable {
 
     function ampliceMint(uint256 id) public payable {
         require(msg.sender == ampliceGhouls.ownerOf(id), "Caller not owner of Id");
-        require(!earlyMintedByIds[id], "Already claimed");
+        require(!earlyMinted[id].amplices, "Already claimed");
         require(msg.value >= MINT_COST, "Insufficient payment");
         mintedByAddress[msg.sender]++;
 
-        earlyMintedByIds[id] = true;
+        earlyMinted[id].amplices = true;
+
+        lostGhouls.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)*id)+1);
+
+    }
+
+    function cantofornianMint(uint256 id) public payable {
+        require(msg.sender == cantofornians.ownerOf(id), "Caller not owner of Id");
+        require(!earlyMinted[id].cantofornians, "Already claimed");
+        require(msg.value >= MINT_COST, "Insufficient payment");
+        mintedByAddress[msg.sender]++;
+
+        earlyMinted[id].cantofornians = true;
+
+        lostGhouls.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)*id)+1);
+
+    }
+
+    function pepperHeadsMint(uint256 id) public payable {
+        require(msg.sender == pepperHeads.ownerOf(id), "Caller not owner of Id");
+        require(!earlyMinted[id].pepperHeads, "Already claimed");
+        require(msg.value >= MINT_COST, "Insufficient payment");
+        mintedByAddress[msg.sender]++;
+
+        earlyMinted[id].pepperHeads = true;
 
         lostGhouls.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)*id)+1);
 

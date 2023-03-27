@@ -12,7 +12,7 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
     
     uint256 public constant MAX_ID = 420;
 
-    address private ghoulsMultiSig = 0x0B983A9A7C0a4Dc37ae2bA2781a9e10141338b34;
+    address private ghoulsMultiSig = 0x4C9046aa11eD7a7D336CA6c6dCD148181c9304D3;
     string public baseUri;
     address public distributor;
 

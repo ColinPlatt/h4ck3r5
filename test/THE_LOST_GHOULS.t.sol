@@ -38,7 +38,7 @@ contract THE_LOST_GHOULS_Test is Test {
 
         vm.startPrank(dep);
 
-            distributor = new Distributor(address(nft), address(ampliceNft));
+            distributor = new Distributor(address(nft), address(ampliceNft), address(0x69));
             nft.setDistributor(address(distributor));
 
         vm.stopPrank();

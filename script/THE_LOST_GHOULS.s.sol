@@ -18,7 +18,7 @@ contract IWLLScript is Script {
         vm.startBroadcast(deployerPrivateKey);
 
             nft = new THE_LOST_GHOULS("https://nftstorage.link/ipfs/bafybeignf5eeht2qf334bk7swgn6lq7hlmp36hsywfo2ckdgtm7zyp5nke/");
-            distributor = new Distributor(address(nft), amplice);
+            distributor = new Distributor(address(nft), amplice, address(0x69));
             nft.setDistributor(address(distributor));
 
         vm.stopBroadcast();
