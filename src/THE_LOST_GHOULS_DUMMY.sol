@@ -8,7 +8,7 @@ import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "src/ITurnstile.sol";
 
 
-contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
+contract THE_LOST_GHOULS_DUMMY is ERC721Enumerable, ERC2981, Ownable {
     
     uint256 public constant MAX_ID = 420;
 
@@ -16,7 +16,7 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
     string public baseUri;
     address public distributor;
 
-    uint256 public immutable CSRID;
+    //uint256 public immutable CSRID;
 
     constructor(string memory _setBaseUri) 
         ERC721(
@@ -24,8 +24,9 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
             unicode"G̴̢̢̡̨̢̨̘̺͔̺̘̙̻̟͇͔͖̹̠͔̟̗͍̣̱̺̱̭̦͕̜̲̰͔͎̟̳̙̩̤̻̹̞̮̟͈̬̯̺̪͍͓̬̗̻͚͎̑̀͗̔͒͆̾̅͂̄̿̀͑̈́̔̓̽͐͊̐̃̉̐͗̏̏̑̒̌̀͌̑̈́̓̆́͂̉̀̀̐͗͛͐̕̚͘̕͠͝͝͝͠ͅḨ̸̭̣͉͎̬͎̼̪͍̪̜̺̜̿͐͊̔̍́ͅĻ̸̡̡̛̟̘͙͈͙̙̺̠͍̮̫̬̗̱̳̬̱̬̘̪̘͇͓͈̠̺̞̯͖̘̱͉̬̟̬̗̝̲͎͛̑̉̀̔̏̀̇͆͌̒̈́̓͒́̈́̈̈́͐͌͑͂̔̅̽͑͒̀̚͜͝Š̶̡̛̩̗̖̖̣͓̭̣͕̬̟͕͕̙̘̃͗͐̄͆̈́͐́͆͛̏̒̌̃͐͌̅̋̽̑̆͊͛̄͒̔̋̈͆͐̂̈́̈́̌̅̈͊̽͊̐̾͋̆̓̔͂͆̕̕̚̚͝͝͝͠͠͠"
         ){
             baseUri = _setBaseUri;
-            _setDefaultRoyalty(ghoulsMultiSig, uint96(690));
-            CSRID = block.chainid == 7700 ? ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).register(ghoulsMultiSig) : 0;
+            //_setDefaultRoyalty(ghoulsMultiSig, uint96(690));
+            //CSRID = block.chainid == 7700 ? ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).register(ghoulsMultiSig) : 0;
+            distributor = msg.sender;
         }
 
     modifier onlyDistributor() {
@@ -48,6 +49,11 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
     function mintFromDistributor(address to, uint256 id) external onlyDistributor {
         require(id<=MAX_ID && id != 0, "THE-LOST-GHOULS: invalid ID");
         _mint(to, id);
+    }
+
+    // including this in the dummy
+    function burn(uint256 id) public {
+        _burn(id);
     }
 
     ////////////////////////////////// Owner only functions //////////////////////////////////

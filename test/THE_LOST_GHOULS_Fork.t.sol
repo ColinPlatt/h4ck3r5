@@ -31,19 +31,34 @@ contract THE_LOST_GHOULS_Fork_Test is Test {
         vm.startPrank(dep);
 
             nft = new THE_LOST_GHOULS("www.test.com/");
-            threshold = new ThresholdGhouls();
+            //threshold = new ThresholdGhouls();
+            threshold = ThresholdGhouls(0xee97c7b1bD2fF60740DdfC859609d3D24Ae7E36F);
             distributor = new Distributor(address(nft), address(0x81996BD9761467202c34141B63B3A7F50D387B6a), address(0x22bC8C0B94e7E92914c5bb647D41B443ee3ABA5E), address(0x842c628787E1064b9f27d74A84b10Fc59801E312), address(threshold));
             nft.setDistributor(address(distributor));
 
-            (addrList0, addrList1) = _loadJsonLists();
+            (addrList0, addrList1) = _loadJsonListsAddress();
 
-            threshold.loadPtr(addrList0);
-            threshold.loadPtr(addrList1);
+            //threshold.loadPtr(addrList0);
+            //threshold.loadPtr(addrList1);
 
         vm.stopPrank();
     }
 
     function _loadJsonLists() internal returns (bytes memory list0, bytes memory list1) {
+        string memory root = vm.projectRoot();
+        string memory path0 = string.concat(root, "/test/snapshot/sortedBytes0.txt");
+        string memory json0 = vm.readFile(path0);
+
+        string memory path1 = string.concat(root, "/test/snapshot/sortedBytes1.txt");
+        string memory json1 = vm.readFile(path1);
+
+        list0 = vm.parseBytes(json0);
+        list1 = vm.parseBytes(json1);
+
+
+    }
+
+    function _loadJsonListsAddress() internal returns (bytes memory list0, bytes memory list1) {
         string memory root = vm.projectRoot();
         string memory path0 = string.concat(root, "/test/snapshot/sortedAddresses_0.json");
         string memory json0 = vm.readFile(path0);
@@ -59,9 +74,19 @@ contract THE_LOST_GHOULS_Fork_Test is Test {
             list1 = abi.encodePacked(list1, bytes20(aList1[i]));
         }
 
+        //vm.writeFile("test/snapshot/sortedBytes0.txt", vm.toString(list0));
+        //vm.writeFile("test/snapshot/sortedBytes1.txt", vm.toString(list1));
+
         //emit log_bytes(list0);
 
+    }
 
+    function testBytesParse() public {
+        (bytes memory list0Bytes, bytes memory list1Bytes) = _loadJsonLists();
+        (bytes memory list0Addr, bytes memory list1Addr) = _loadJsonListsAddress();
+
+        assertEq(list0Bytes, list0Addr);
+        assertEq(list1Bytes, list1Addr);
     }
 
 

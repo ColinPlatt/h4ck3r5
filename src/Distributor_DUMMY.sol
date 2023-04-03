@@ -7,10 +7,10 @@ import "src/ThresholdGhouls.sol";
 
 import "src/ITurnstile.sol";
 
-contract Distributor is Ownable {
+contract Distributor_DUMMY is Ownable {
 
     uint256 public constant MAX_MINT = 420;
-    uint256 public constant MINT_COST = 169 ether;
+    uint256 public constant MINT_COST = 0.00169 ether;
 
     IERC721 public immutable ampliceGhouls;
     IERC721 public immutable cantofornians;
@@ -32,8 +32,8 @@ contract Distributor is Ownable {
     }
 
     uint8 ampliceCounter;
-    uint256 earlyMintStart = 1680625200;
-    uint256 publicMintStart = 1680798000;
+    uint256 earlyMintStart = 1580625200;
+    uint256 publicMintStart = 1580798000;
 
     mapping(uint256 => earlyMints) public earlyMinted;
     mapping(address => bool) public earlyMintedByThresholds;
@@ -54,7 +54,7 @@ contract Distributor is Ownable {
         cantofornians = IERC721(_cantofornians);
         pepperHeads = IERC721(_pepperHeads);
         thresholdGhouls = ThresholdGhouls(_thresholdGhouls);
-        if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).assign(lostGhouls.CSRID());
+        if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).assign(650);
     }
 
     modifier isOpen(bool earlyMint) {
