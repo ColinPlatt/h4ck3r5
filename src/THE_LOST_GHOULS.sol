@@ -24,7 +24,7 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
             unicode"G̴̢̢̡̨̢̨̘̺͔̺̘̙̻̟͇͔͖̹̠͔̟̗͍̣̱̺̱̭̦͕̜̲̰͔͎̟̳̙̩̤̻̹̞̮̟͈̬̯̺̪͍͓̬̗̻͚͎̑̀͗̔͒͆̾̅͂̄̿̀͑̈́̔̓̽͐͊̐̃̉̐͗̏̏̑̒̌̀͌̑̈́̓̆́͂̉̀̀̐͗͛͐̕̚͘̕͠͝͝͝͠ͅḨ̸̭̣͉͎̬͎̼̪͍̪̜̺̜̿͐͊̔̍́ͅĻ̸̡̡̛̟̘͙͈͙̙̺̠͍̮̫̬̗̱̳̬̱̬̘̪̘͇͓͈̠̺̞̯͖̘̱͉̬̟̬̗̝̲͎͛̑̉̀̔̏̀̇͆͌̒̈́̓͒́̈́̈̈́͐͌͑͂̔̅̽͑͒̀̚͜͝Š̶̡̛̩̗̖̖̣͓̭̣͕̬̟͕͕̙̘̃͗͐̄͆̈́͐́͆͛̏̒̌̃͐͌̅̋̽̑̆͊͛̄͒̔̋̈͆͐̂̈́̈́̌̅̈͊̽͊̐̾͋̆̓̔͂͆̕̕̚̚͝͝͝͠͠͠"
         ){
             baseUri = _setBaseUri;
-            _setDefaultRoyalty(ghoulsMultiSig, uint96(1000));
+            _setDefaultRoyalty(ghoulsMultiSig, uint96(690));
             CSRID = block.chainid == 7700 ? ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).register(ghoulsMultiSig) : 0;
         }
 

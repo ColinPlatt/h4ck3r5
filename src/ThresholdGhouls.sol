@@ -8,25 +8,23 @@ import "src/ITurnstile.sol";
 
 contract ThresholdGhouls is Ownable {
 
-    address private ghoulsMultiSig = 0x0B983A9A7C0a4Dc37ae2bA2781a9e10141338b34;
-
     address internal pointer0;
     address internal pointer1;
-    address internal firstPointer1;
+    address internal firstAddressPointer1;
 
-    constructor(uint256 _CSRID) {
-        if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).assign(_CSRID);
+    constructor() {
+        if(block.chainid == 7700) ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).register(msg.sender);
     }
 
     // We expect to call this twice. Each recipient list is limited to 1228 addresses
     function loadPtr(bytes calldata recipients) public onlyOwner {
-        require(pointer0 == address(0) || pointer0 == address(0) , "ALREADY_LOADED");
+        require(pointer0 == address(0) || pointer1 == address(0) , "ALREADY_LOADED");
 
         if(pointer0 == address(0)) {
             pointer0 = SSTORE2.write(recipients);
         } else {
             // we determine the first address in the second batch to simplify who goes into which batch
-            firstPointer1 = address(bytes20(recipients[0:20]));
+            firstAddressPointer1 = address(bytes20(recipients[0:20]));
             pointer1 = SSTORE2.write(recipients);
         }
     }
@@ -88,7 +86,7 @@ contract ThresholdGhouls is Ownable {
     function _isListed(address owner) public view returns (bool) {
         uint256 low = 1;
         
-        if(uint160(owner) < uint160(firstPointer1)) {
+        if(uint160(owner) < uint160(firstAddressPointer1)) {
         
             uint256 high = _ownersPrimaryLength0();
             uint256 mid = (low + high) / 2;

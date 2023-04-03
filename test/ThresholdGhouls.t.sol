@@ -2,40 +2,48 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "src/Distributor.sol";
+import "forge-std/StdJson.sol";
 
 contract ThresholdGhouls_Test is Test {
+    using stdJson for string;
 
-    address[5] public batchAddresses;
+    // turning this off, just so we don't overwrite it by accident
+    function off_testSort() public {
+        string memory root = vm.projectRoot();
+        string memory path = string.concat(root, "/test/snapshot/basedGhoulsAddrs.json");
+        string memory json = vm.readFile(path);
 
-    function testSetup() public {
+        address[] memory unSortedAddresses = new address[](1848);
 
-        address[] memory temp = new address[](6);
+        for(uint i = 0; i<unSortedAddresses.length; i++) {
+            unSortedAddresses[i] = json.readAddress(
+                string.concat(
+                    ".data[",
+                    vm.toString(i),
+                    "].address"
+                )
+            );
+        }
 
-        temp[0] = address(bytes20(hex'ab339ae6eab3c3cf4f5885e56f7b49391a01dda6'));
-        temp[1] = address(bytes20(hex'00003183f59e825911d98fb509a157cd2abbae25'));
-        temp[2] = address(bytes20(hex'cf51040f5861907c6c7ae33b49f8605fcb802117'));
-        temp[3] = address(bytes20(hex'475dcaa08a69fa462790f42db4d3bba1563cb474'));
-        temp[4] = address(bytes20(hex'259524ed1606f5ecd39e5815108843d7c8e8fa78'));
 
-        temp[5] = address(0x259524Ed1606F5Ecd39E5815108843d7C8E8Fa78);
+        address[] memory sortedAddresses = sort(unSortedAddresses);
 
-        for (uint256 i = 0; i< 5; i++) {
+        string memory sortedJson = vm.serializeAddress("data", "address", sortedAddresses);
 
-            //emit log_address(temp[i]);
-            emit log_uint(uint160(temp[i]));
+        address[] memory sortedAddresses_0 = new address[](1848/2);
+        address[] memory sortedAddresses_1 = new address[](1848/2);
 
-        } 
+        for(uint i = 0; i<(1848/2); i++) {
+            sortedAddresses_0[i] = sortedAddresses[i];
+            sortedAddresses_1[i] = sortedAddresses[i+(1848/2)];
+        }
 
-        assertEq(temp[4], temp[5]);
+        string memory sortedJson_0 = vm.serializeAddress("data", "address", sortedAddresses_0);
+        string memory sortedJson_1 = vm.serializeAddress("data", "address", sortedAddresses_1);
 
-        address[] memory tempSorted = sort(temp);
+        vm.writeJson(sortedJson_0, string.concat(root, "/test/snapshot/sortedAddresses_0.json"));
+        vm.writeJson(sortedJson_1, string.concat(root, "/test/snapshot/sortedAddresses_1.json"));
 
-        for (uint256 i = 0; i< 5; i++) {
-
-            emit log_address(tempSorted[i]);
-
-        } 
 
     }
 

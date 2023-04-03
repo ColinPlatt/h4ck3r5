@@ -2,5 +2,10 @@
 src = 'src'
 out = 'out'
 libs = ['lib']
+solc = '0.8.17'
+fs_permissions = [
+    { access = "read-write", path = "./test/snapshot/"}
+]
+
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config

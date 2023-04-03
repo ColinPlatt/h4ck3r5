@@ -16,18 +16,26 @@ contract THE_LOST_GHOULS_Test is Test {
     address public constant alice = address(0xA11ce);
     address public constant dep = address(0xad1);
 
-    address[100] public ampliceHolders;
+    address[101] public ampliceHolders;
+
+    string RPC = vm.envString("RPC_URL");
+    uint256 fork;
     
     function setUp() public {
+        //fork = vm.createSelectFork(RPC);
+
+        vm.warp(1680625200+1);
+
         vm.startPrank(dep);
 
             nft = new THE_LOST_GHOULS("www.test.com/");
 
             ampliceNft = new AmpliceGhouls();
+            
 
         vm.stopPrank();
 
-        for(uint256 i = 0; i<100; i++) {
+        for(uint256 i = 0; i<101; i++) {
             ampliceHolders[i] = address(uint160(100+i));
             vm.deal(ampliceHolders[i], 1000 ether);
             
@@ -44,13 +52,14 @@ contract THE_LOST_GHOULS_Test is Test {
         vm.stopPrank();
     }
 
+    
     function testMints() public {
 
         vm.deal(ampliceHolders[0], 10_000 ether);
 
         vm.startPrank(ampliceHolders[0]);
 
-            distributor.ampliceMint{value: 269 ether}(0);
+            distributor.ampliceMint{value: 169 ether}(0);
 
         vm.stopPrank();
 
@@ -60,8 +69,8 @@ contract THE_LOST_GHOULS_Test is Test {
 
         vm.startPrank(alice);
 
-            vm.expectRevert(bytes("Not yet open to public"));
-            distributor.publicMint{value: 269 ether}(1);
+            vm.expectRevert(bytes("public mint not open"));
+            distributor.publicMint{value: 169 ether}(1);
 
         vm.stopPrank();
 
@@ -72,7 +81,7 @@ contract THE_LOST_GHOULS_Test is Test {
 
         vm.startPrank(alice);
         
-            distributor.publicMint{value: 269 ether}(1);
+            distributor.publicMint{value: 169 ether}(1);
 
         vm.stopPrank();
 
@@ -94,7 +103,7 @@ contract THE_LOST_GHOULS_Test is Test {
         vm.startPrank(alice);
         
             vm.expectRevert(bytes("Insufficient payment"));
-            distributor.publicMint{value: 199 ether*5}(5);
+            distributor.publicMint{value: 168 ether*5}(5);
 
         vm.stopPrank();
 
@@ -114,7 +123,7 @@ contract THE_LOST_GHOULS_Test is Test {
         vm.startPrank(alice);
         
             vm.expectRevert(bytes("Max 5 mints"));
-            distributor.publicMint{value: 269 ether*6}(6);
+            distributor.publicMint{value: 169 ether*6}(6);
 
         vm.stopPrank();
 
@@ -122,11 +131,11 @@ contract THE_LOST_GHOULS_Test is Test {
 
         vm.startPrank(alice);
             
-            distributor.publicMint{value: 269 ether*5}(5);
+            distributor.publicMint{value: 169 ether*5}(5);
             assertEq(nft.balanceOf(alice), 5);
 
             vm.expectRevert(bytes("Max 5 per address"));
-            distributor.publicMint{value: 269 ether*1}(1);
+            distributor.publicMint{value: 169 ether*1}(1);
             assertEq(nft.balanceOf(alice), 5);
 
         vm.stopPrank();
@@ -134,6 +143,8 @@ contract THE_LOST_GHOULS_Test is Test {
     }
 
     function testMintOwner() public {
+
+        vm.warp(block.timestamp + 2 days);
 
         vm.startPrank(dep);
         
@@ -152,44 +163,40 @@ contract THE_LOST_GHOULS_Test is Test {
             distributor.openPublic();
         vm.stopPrank();
 
-        for(uint256 i = 0; i<400; ++i) {
+        for(uint256 i = 0; i<84; ++i) {
 
             vm.deal(address(uint160(i+1)), 10_000 ether);
 
             vm.startPrank(address(uint160(i+1)));
 
-                distributor.publicMint{value: 269 ether*5}(5);
+                distributor.publicMint{value: 169 ether*5}(5);
                 
             vm.stopPrank();
 
             assertEq(nft.balanceOf(address(uint160(i+1))), 5);
 
             for(uint256 j = 0; j<5; ++j) {
-                assert(nft.tokenOfOwnerByIndex(address(uint160(i+1)),j)<2001);
+                assert(nft.tokenOfOwnerByIndex(address(uint160(i+1)),j)<421);
                 assert(nft.tokenOfOwnerByIndex(address(uint160(i+1)),j)>0);
             }
         }
 
-        assertEq(nft.totalSupply(), 2000);
+        assertEq(nft.totalSupply(), 420);
 
         vm.deal(alice, 10_000 ether);
 
         vm.startPrank(alice);
         
             vm.expectRevert(bytes("Mint closed"));
-            distributor.publicMint{value: 269 ether*1}(1);
+            distributor.publicMint{value: 169 ether*1}(1);
 
         vm.stopPrank();
 
         assertEq(nft.balanceOf(alice), 0);
 
         vm.startPrank(dep);
-            assertEq(address(distributor).balance, 269 ether * 2000);
-            
-            distributor.withdraw(address(distributor).balance);
             assertEq(address(distributor).balance, 0);
-            assertEq(address(dep).balance, 269 ether * 2000);
-
+            assertEq(address(0x0152DE0F97Da0E2c00F9c228A9beC048981646c9).balance, 169 ether * 420);
         vm.stopPrank();
 
     }
@@ -239,13 +246,29 @@ contract THE_LOST_GHOULS_Test is Test {
 
         vm.startPrank(alice);
 
-            distributor.publicMint{value: 269 ether*1}(1);
+            distributor.publicMint{value: 169 ether*1}(1);
 
         vm.stopPrank();
 
         uint256 id = nft.tokenOfOwnerByIndex(alice,0);
 
-        assertEq(nft.tokenURI(id),"www.test.com/740");
+        assertEq(id,8);
+        assertEq(nft.tokenURI(id),"www.test.com/8");
+
+    }
+
+    function testTooManyAmplices() public {
+
+        for(uint256 i = 0; i< 100; ++i) {
+            vm.startPrank(ampliceHolders[i]);
+                distributor.ampliceMint{value: 169 ether}(i);
+            vm.stopPrank();
+        }
+
+        vm.startPrank(ampliceHolders[100]);
+            vm.expectRevert(bytes("Too many amplices."));
+            distributor.ampliceMint{value: 169 ether}(100);
+        vm.stopPrank();
 
     }
 
