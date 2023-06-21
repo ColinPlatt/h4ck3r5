@@ -5,31 +5,25 @@ import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerabl
 import "openzeppelin-contracts/contracts/token/common/ERC2981.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
-import "src/ITurnstile.sol";
-
-
-contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
+contract H4CK3R5 is ERC721Enumerable, ERC2981, Ownable {
     
-    uint256 public constant MAX_ID = 420;
+    uint256 public constant MAX_ID = 1507;
 
-    address private ghoulsMultiSig = 0x4C9046aa11eD7a7D336CA6c6dCD148181c9304D3;
+    address private multiSig = 0xFb34Fc2a64BB863015145370554B5fbA5eFc5DC8;
     string public baseUri;
     address public distributor;
 
-    uint256 public immutable CSRID;
-
     constructor(string memory _setBaseUri) 
         ERC721(
-            "THE-LOST-GHOULS",
-            unicode"G̴̢̢̡̨̢̨̘̺͔̺̘̙̻̟͇͔͖̹̠͔̟̗͍̣̱̺̱̭̦͕̜̲̰͔͎̟̳̙̩̤̻̹̞̮̟͈̬̯̺̪͍͓̬̗̻͚͎̑̀͗̔͒͆̾̅͂̄̿̀͑̈́̔̓̽͐͊̐̃̉̐͗̏̏̑̒̌̀͌̑̈́̓̆́͂̉̀̀̐͗͛͐̕̚͘̕͠͝͝͝͠ͅḨ̸̭̣͉͎̬͎̼̪͍̪̜̺̜̿͐͊̔̍́ͅĻ̸̡̡̛̟̘͙͈͙̙̺̠͍̮̫̬̗̱̳̬̱̬̘̪̘͇͓͈̠̺̞̯͖̘̱͉̬̟̬̗̝̲͎͛̑̉̀̔̏̀̇͆͌̒̈́̓͒́̈́̈̈́͐͌͑͂̔̅̽͑͒̀̚͜͝Š̶̡̛̩̗̖̖̣͓̭̣͕̬̟͕͕̙̘̃͗͐̄͆̈́͐́͆͛̏̒̌̃͐͌̅̋̽̑̆͊͛̄͒̔̋̈͆͐̂̈́̈́̌̅̈͊̽͊̐̾͋̆̓̔͂͆̕̕̚̚͝͝͝͠͠͠"
+            "H4CK3R5",
+            "H4CK3R5"
         ){
             baseUri = _setBaseUri;
-            _setDefaultRoyalty(ghoulsMultiSig, uint96(690));
-            CSRID = block.chainid == 7700 ? ITurnstile(0xEcf044C5B4b867CFda001101c617eCd347095B44).register(ghoulsMultiSig) : 0;
+            _setDefaultRoyalty(multiSig, uint96(690));
         }
 
     modifier onlyDistributor() {
-        require(distributor == _msgSender(), "THE-LOST-GHOULS: caller is not the distributor");
+        require(distributor == _msgSender(), "H4CK3R5: caller is not the distributor");
         _;
     }
 
@@ -46,7 +40,7 @@ contract THE_LOST_GHOULS is ERC721Enumerable, ERC2981, Ownable {
 
     // minting should be called from the distributor contract which assigns an ID and gives it to the caller
     function mintFromDistributor(address to, uint256 id) external onlyDistributor {
-        require(id<=MAX_ID && id != 0, "THE-LOST-GHOULS: invalid ID");
+        require(id<=MAX_ID && id != 0, "H4CK3R5: invalid ID");
         _mint(to, id);
     }
 
