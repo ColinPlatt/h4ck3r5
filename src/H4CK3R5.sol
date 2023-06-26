@@ -30,7 +30,7 @@ contract H4CK3R5 is ERC721Enumerable, ERC2981, Ownable {
         _requireMinted(tokenId);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, Strings.toString(tokenId), ".json")) : "";
+        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, Strings.toString(tokenId))) : "";
     }
 
     function _baseURI() internal view override returns (string memory) {

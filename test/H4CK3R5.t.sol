@@ -239,7 +239,7 @@ contract H4CK3R5_TEST is Test {
 
         uint256 id = nft.tokenOfOwnerByIndex(alice,0);
 
-        assertEq(nft.tokenURI(id),string.concat("https://bafybeicnoxjorayfx2e3udo7gbbi2ab6j6bdc3yi4vhbrbpkz7fzqiimdu.ipfs.nftstorage.link/",vm.toString(id), ".json"));
+        assertEq(nft.tokenURI(id),string.concat("https://bafybeicnoxjorayfx2e3udo7gbbi2ab6j6bdc3yi4vhbrbpkz7fzqiimdu.ipfs.nftstorage.link/",vm.toString(id)));
 
     }
 }
