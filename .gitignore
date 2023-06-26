@@ -1,6 +1,6 @@
 # Compiler files
 cache/
-out/
+
 
 # Ignores development broadcast logs
 !/broadcast
@@ -15,3 +15,5 @@ docs/
 
 # Identifier files
 .identifier
+
+node_modules/
