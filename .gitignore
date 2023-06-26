@@ -16,6 +16,5 @@ docs/
 # Identifier files
 .identifier
 
-node_modules/
-/node_modules
+#dependencies
 node_modules
