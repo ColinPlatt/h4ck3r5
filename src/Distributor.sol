@@ -53,8 +53,17 @@ contract Distributor is Ownable {
     }
 
     // just in case fees get stuck we should be able to force them to pay the receiver wallet
-    function forceWithdraw() public onlyOwner {
+    function withdraw() public onlyOwner {
         _payReceiver(address(this).balance);
+    }
+
+    function withdraw(uint256 amt) public onlyOwner {
+        _payReceiver(amt);
+    }
+
+    // in the event that there is a problem with the fund withdrawal we can force the withdraw to owner wallet
+    function emergencyWithdraw() public onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
 
     function _pickPseudoRandomUniqueId(uint256 seed) private returns (uint256 id) {
@@ -84,7 +93,6 @@ contract Distributor is Ownable {
         
         require(!hasMinted, "Already claimed");
         require(msg.value == DISCOUNT_MINT_COST, "Insufficient payment");
-        _payReceiver(msg.value);
         mintedByAddress[msg.sender]++;
 
         hackers.mintFromDistributor(msg.sender, _pickPseudoRandomUniqueId(uint160(msg.sender)*id));
@@ -94,10 +102,9 @@ contract Distributor is Ownable {
     function publicMint(uint8 amt) public payable {
         // owner not subjected to maxes
         if(msg.sender != owner()){
-            require(amt <= 5 , "Max 5 mints");
-            require(mintedByAddress[msg.sender]+amt <= 5, "Max 5 per address");
+            require(amt <= 10 , "Max 10 mints");
+            require(mintedByAddress[msg.sender]+amt <= 10, "Max 10 per address");
             require(msg.value == amt * MINT_COST, "Insufficient payment");
-            _payReceiver(msg.value);
             mintedByAddress[msg.sender] += amt;
         }
 

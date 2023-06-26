@@ -10,7 +10,7 @@ contract H4CK3R5 is ERC721Enumerable, ERC2981, Ownable {
     uint256 public constant MAX_ID = 1507;
 
     address private multiSig = 0xFb34Fc2a64BB863015145370554B5fbA5eFc5DC8;
-    string public baseUri;
+    string public baseUri = 'https://bafybeicnoxjorayfx2e3udo7gbbi2ab6j6bdc3yi4vhbrbpkz7fzqiimdu.ipfs.nftstorage.link/';
     address public distributor;
 
     constructor(string memory _setBaseUri) 
