@@ -13,12 +13,11 @@ contract H4CK3R5 is ERC721Enumerable, ERC2981, Ownable {
     string public baseUri = 'https://bafybeicnoxjorayfx2e3udo7gbbi2ab6j6bdc3yi4vhbrbpkz7fzqiimdu.ipfs.nftstorage.link/';
     address public distributor;
 
-    constructor(string memory _setBaseUri) 
+    constructor() 
         ERC721(
             "H4CK3R5",
             "H4CK3R5"
         ){
-            baseUri = _setBaseUri;
             _setDefaultRoyalty(multiSig, uint96(690));
         }
 

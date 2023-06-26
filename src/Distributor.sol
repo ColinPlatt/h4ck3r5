@@ -10,9 +10,9 @@ contract Distributor is Ownable {
     uint256 public constant DISCOUNT_MINT_COST = 0.05 ether;
     uint256 public constant MINT_COST = 0.069 ether;
 
-    address public constant SKULLS = 0x9251dEC8DF720C2ADF3B6f46d968107cbBADf4d4;
-    address public constant CHAIN_RUNNERS = 0x97597002980134beA46250Aa0510C9B90d87A587;
-    address public constant BASED_GHOULS = 0xeF1a89cbfAbE59397FfdA11Fc5DF293E9bC5Db90;
+    address public immutable SKULLS;// = 0x9251dEC8DF720C2ADF3B6f46d968107cbBADf4d4;
+    address public immutable CHAIN_RUNNERS;// = 0x97597002980134beA46250Aa0510C9B90d87A587;
+    address public immutable BASED_GHOULS;// = 0xeF1a89cbfAbE59397FfdA11Fc5DF293E9bC5Db90;
 
     address public constant FEE_RECEIVER = 0xFb34Fc2a64BB863015145370554B5fbA5eFc5DC8;
     
@@ -33,9 +33,15 @@ contract Distributor is Ownable {
     uint16 private index;
     
     constructor(
-        address _hackers
+        address _hackers,
+        address _skulls,
+        address _chain_runners,
+        address _based_ghouls
     ) {
         hackers = H4CK3R5(_hackers);
+        SKULLS = _skulls;
+        CHAIN_RUNNERS = _chain_runners;
+        BASED_GHOULS = _based_ghouls;
     }
 
     function _payReceiver(uint256 amount) internal {
