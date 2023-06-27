@@ -3,9 +3,13 @@ src = 'src'
 out = 'out'
 libs = ['lib']
 solc = '0.8.17'
+optimizer_runs=1000
+
 fs_permissions = [
     { access = "read-write", path = "./test/snapshot/"}
 ]
+[etherscan]
+goerli = { key = "VVX41BW4M4AGGJY2VFHNQM4IJVJRRBT3I6" }
 
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config

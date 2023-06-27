@@ -11,7 +11,7 @@
     "linkReferences": {}
   },
   "methodIdentifiers": {},
-  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"lib/forge-std/src/Base.sol\":\"TestBase\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":SS2ERC721/=lib/SS2ERC721/src/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solmate/=lib/solmate/src/\"]},\"sources\":{\"lib/forge-std/src/Base.sol\":{\"keccak256\":\"0x609e3a00319169988cc8272e837f350a9ba77cf8f8f62e4897a8e4a8a5f0fb27\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b24435e35ba5b080ebd6e8976c23fb735c7212d042be8462ffd2ea50c5250363\",\"dweb:/ipfs/QmPeVvN7FS4oMmCuYAeRdZihTfrG4tA7Vvunuvv59a6wre\"]},\"lib/forge-std/src/StdStorage.sol\":{\"keccak256\":\"0xd1517df281f973dba8b7ba52c02d3df552b60d91b8f47e4669049da648778673\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://52e43264f58a5dcfd985f3c99aa81064805aa8f1c2b4c6521fd63d45cdbba8d5\",\"dweb:/ipfs/QmUMTF6cRjt5tCQrrgQDXVRmHQLjevNsTvLFdaA1m9TBj9\"]},\"lib/forge-std/src/Vm.sol\":{\"keccak256\":\"0xdd9f518aade851117d3ca3122cae6ed413a8b8355d43d69db336e94da3214a96\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://939ede17edec5c78176379839f4c68851b1316e8f5789efb2f01cbdae09b88ef\",\"dweb:/ipfs/QmYiBBb7Nyuse7HoEFkCeauUwcpef9S33ozZYDqXCEXEtH\"]}},\"version\":1}",
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"lib/forge-std/src/Base.sol\":\"TestBase\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[\":SS2ERC721/=lib/SS2ERC721/src/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solmate/=lib/solmate/src/\"]},\"sources\":{\"lib/forge-std/src/Base.sol\":{\"keccak256\":\"0x609e3a00319169988cc8272e837f350a9ba77cf8f8f62e4897a8e4a8a5f0fb27\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b24435e35ba5b080ebd6e8976c23fb735c7212d042be8462ffd2ea50c5250363\",\"dweb:/ipfs/QmPeVvN7FS4oMmCuYAeRdZihTfrG4tA7Vvunuvv59a6wre\"]},\"lib/forge-std/src/StdStorage.sol\":{\"keccak256\":\"0xd1517df281f973dba8b7ba52c02d3df552b60d91b8f47e4669049da648778673\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://52e43264f58a5dcfd985f3c99aa81064805aa8f1c2b4c6521fd63d45cdbba8d5\",\"dweb:/ipfs/QmUMTF6cRjt5tCQrrgQDXVRmHQLjevNsTvLFdaA1m9TBj9\"]},\"lib/forge-std/src/Vm.sol\":{\"keccak256\":\"0xdd9f518aade851117d3ca3122cae6ed413a8b8355d43d69db336e94da3214a96\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://939ede17edec5c78176379839f4c68851b1316e8f5789efb2f01cbdae09b88ef\",\"dweb:/ipfs/QmYiBBb7Nyuse7HoEFkCeauUwcpef9S33ozZYDqXCEXEtH\"]}},\"version\":1}",
   "metadata": {
     "compiler": {
       "version": "0.8.17+commit.8df45f5f"
@@ -40,7 +40,7 @@
       ],
       "optimizer": {
         "enabled": true,
-        "runs": 200
+        "runs": 1000
       },
       "metadata": {
         "bytecodeHash": "ipfs"
@@ -89,16 +89,16 @@
         1858
       ],
       "StdStorage": [
-        7245
+        7282
       ],
       "TestBase": [
         1846
       ],
       "Vm": [
-        12065
+        12102
       ],
       "VmSafe": [
-        11710
+        11747
       ]
     },
     "nodeType": "SourceUnit",
@@ -128,7 +128,7 @@
         "file": "./StdStorage.sol",
         "nameLocation": "-1:-1:-1",
         "scope": 1859,
-        "sourceUnit": 8679,
+        "sourceUnit": 8716,
         "symbolAliases": [
           {
             "foreign": {
@@ -136,7 +136,7 @@
               "name": "StdStorage",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 7245,
+              "referencedDeclaration": 7282,
               "src": "73:10:1",
               "typeDescriptions": {}
             },
@@ -154,7 +154,7 @@
         "file": "./Vm.sol",
         "nameLocation": "-1:-1:-1",
         "scope": 1859,
-        "sourceUnit": 12066,
+        "sourceUnit": 12103,
         "symbolAliases": [
           {
             "foreign": {
@@ -162,7 +162,7 @@
               "name": "Vm",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 12065,
+              "referencedDeclaration": 12102,
               "src": "118:2:1",
               "typeDescriptions": {}
             },
@@ -174,7 +174,7 @@
               "name": "VmSafe",
               "nodeType": "Identifier",
               "overloadedDeclarations": [],
-              "referencedDeclaration": 11710,
+              "referencedDeclaration": 11747,
               "src": "122:6:1",
               "typeDescriptions": {}
             },
@@ -814,7 +814,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_Vm_$12065",
+              "typeIdentifier": "t_contract$_Vm_$12102",
               "typeString": "contract Vm"
             },
             "typeName": {
@@ -827,13 +827,13 @@
                   "1194:2:1"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 12065,
+                "referencedDeclaration": 12102,
                 "src": "1194:2:1"
               },
-              "referencedDeclaration": 12065,
+              "referencedDeclaration": 12102,
               "src": "1194:2:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Vm_$12065",
+                "typeIdentifier": "t_contract$_Vm_$12102",
                 "typeString": "contract Vm"
               }
             },
@@ -863,10 +863,10 @@
                 "name": "Vm",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 12065,
+                "referencedDeclaration": 12102,
                 "src": "1220:2:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_Vm_$12065_$",
+                  "typeIdentifier": "t_type$_t_contract$_Vm_$12102_$",
                   "typeString": "type(contract Vm)"
                 }
               },
@@ -882,7 +882,7 @@
               "src": "1220:14:1",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Vm_$12065",
+                "typeIdentifier": "t_contract$_Vm_$12102",
                 "typeString": "contract Vm"
               }
             },
@@ -901,7 +901,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_StdStorage_$7245_storage",
+              "typeIdentifier": "t_struct$_StdStorage_$7282_storage",
               "typeString": "struct StdStorage"
             },
             "typeName": {
@@ -914,13 +914,13 @@
                   "1240:10:1"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 7245,
+                "referencedDeclaration": 7282,
                 "src": "1240:10:1"
               },
-              "referencedDeclaration": 7245,
+              "referencedDeclaration": 7282,
               "src": "1240:10:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_StdStorage_$7245_storage_ptr",
+                "typeIdentifier": "t_struct$_StdStorage_$7282_storage_ptr",
                 "typeString": "struct StdStorage"
               }
             },
@@ -1040,7 +1040,7 @@
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_VmSafe_$11710",
+              "typeIdentifier": "t_contract$_VmSafe_$11747",
               "typeString": "contract VmSafe"
             },
             "typeName": {
@@ -1053,13 +1053,13 @@
                   "1561:6:1"
                 ],
                 "nodeType": "IdentifierPath",
-                "referencedDeclaration": 11710,
+                "referencedDeclaration": 11747,
                 "src": "1561:6:1"
               },
-              "referencedDeclaration": 11710,
+              "referencedDeclaration": 11747,
               "src": "1561:6:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VmSafe_$11710",
+                "typeIdentifier": "t_contract$_VmSafe_$11747",
                 "typeString": "contract VmSafe"
               }
             },
@@ -1089,10 +1089,10 @@
                 "name": "VmSafe",
                 "nodeType": "Identifier",
                 "overloadedDeclarations": [],
-                "referencedDeclaration": 11710,
+                "referencedDeclaration": 11747,
                 "src": "1595:6:1",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_type$_t_contract$_VmSafe_$11710_$",
+                  "typeIdentifier": "t_type$_t_contract$_VmSafe_$11747_$",
                   "typeString": "type(contract VmSafe)"
                 }
               },
@@ -1108,7 +1108,7 @@
               "src": "1595:18:1",
               "tryCall": false,
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_VmSafe_$11710",
+                "typeIdentifier": "t_contract$_VmSafe_$11747",
                 "typeString": "contract VmSafe"
               }
             },
