@@ -4,6 +4,7 @@ out = 'out'
 libs = ['lib']
 solc = '0.8.17'
 optimizer_runs=1000
+gas_price = 20000000000
 
 fs_permissions = [
     { access = "read-write", path = "./test/snapshot/"}
